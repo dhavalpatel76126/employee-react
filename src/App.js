@@ -14,7 +14,7 @@ import CreateEmployee from "./components/employee/create.component";
 function App() {
   return (
     <Router>
-      <Navbar bg="primary">
+      <Navbar bg="dark">
         <Container>
           <Link to={"/"} className="navbar-brand text-white">
             Employee app

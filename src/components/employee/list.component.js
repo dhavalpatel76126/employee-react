@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 export default function List() {
   const [employees, setEmployees] = useState([]);
+  const [query, setquery] = useState("");
 
   useEffect(() => {
     fetchEmployees();
@@ -62,6 +63,18 @@ export default function List() {
             Create Employee
           </Link>
         </div>
+        <div className="row">
+          <div className="form-outline my-3">
+            <input
+              type="search"
+              id="form1"
+              className="form-control search"
+              placeholder="Search...."
+              aria-label="Search"
+              onChange={(e) => setquery(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="col-12">
           <div className="card card-body">
             <div className="table-responsive">
@@ -77,34 +90,40 @@ export default function List() {
                 </thead>
                 <tbody>
                   {employees.length > 0 &&
-                    employees.map((row, key) => (
-                      <tr key={key}>
-                        <td>{row.name}</td>
-                        <td>{row.email}</td>
-                        <td>{row.age}</td>
-                        <td>
-                          <img
-                            width="50px"
-                            src={`http://localhost:8000/storage/employee/image/${row.image}`}
-                            alt={key}
-                          />
-                        </td>
-                        <td>
-                          <Link
-                            to={`/employee/edit/${row.id}`}
-                            className="btn btn-success me-2"
-                          >
-                            Edit
-                          </Link>
-                          <Button
-                            variant="danger"
-                            onClick={() => deleteEmployee(row.id)}
-                          >
-                            Delete
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
+                    employees
+                      .filter(
+                        (emp) =>
+                          emp.name.toLowerCase().includes(query) ||
+                          emp.email.toLowerCase().includes(query) 
+                      )
+                      .map((row, key) => (
+                        <tr key={key}>
+                          <td>{row.name}</td>
+                          <td>{row.email}</td>
+                          <td>{row.age}</td>
+                          <td>
+                            <img
+                              width="50px"
+                              src={`http://localhost:8000/storage/employee/image/${row.image}`}
+                              alt={key}
+                            />
+                          </td>
+                          <td>
+                            <Link
+                              to={`/employee/edit/${row.id}`}
+                              className="btn btn-success me-2"
+                            >
+                              Edit
+                            </Link>
+                            <Button
+                              variant="danger"
+                              onClick={() => deleteEmployee(row.id)}
+                            >
+                              Delete
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
                 </tbody>
               </table>
             </div>
