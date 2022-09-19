@@ -94,7 +94,7 @@ export default function List() {
                       .filter(
                         (emp) =>
                           emp.name.toLowerCase().includes(query) ||
-                          emp.email.toLowerCase().includes(query) 
+                          emp.email.toLowerCase().includes(query)
                       )
                       .map((row, key) => (
                         <tr key={key}>
